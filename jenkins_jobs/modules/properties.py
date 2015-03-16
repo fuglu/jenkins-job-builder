@@ -577,6 +577,26 @@ def delivery_pipeline(parser, xml_parent, data):
     XML.SubElement(pipeline, 'taskName').text = data.get('task', '')
 
 
+def rebuild(parser, xml_parent, data):
+    """yaml: rebuild
+    Requires the Jenkins :jenkins-wiki:`Rebuild Plugin
+    <Rebuild+Plugin>`.
+
+    :arg bool auto-rebuild: Rebuild with same parameters (default False)
+
+    Example:
+
+    .. literalinclude:: \
+            /../../tests/properties/fixtures/rebuild.yaml
+
+    """
+    rebuild_plugin = XML.SubElement(xml_parent,
+                                    'com.sonyericsson.rebuild.'
+                                    'RebuildSettings')
+    XML.SubElement(rebuild_plugin, 'autoRebuild').text = str(
+        data.get('auto-rebuild', False)).lower()
+
+
 def zeromq_event(parser, xml_parent, data):
     """yaml: zeromq-event
     This is a Jenkins plugin that will publish Jenkins Job run events
